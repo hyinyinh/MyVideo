@@ -1,0 +1,36 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-swallow-size: -1 #tomcat默认大小为2m 超过2m的文件不会被捕获 需要调整此处为100m
+
+spring:
+  application:
+    name: tiktok
+  profiles:
+    active: dev  #测试环境
+  servlet:
+    multipart:
+      max-file-size: 2MB      # 文件上传大小限制，设置最大值，不能超过该值，否则报错
+      max-request-size: 2MB     # 文件最大请求限制，用于批量上传
+      #      max-file-size: 500KB      # 文件上传大小限制，设置最大值，不能超过该值，否则报错
+      #      max-request-size: 500KB
+  banner:
+    location: classpath:banner/banner.txt
+
+
+
+# 整合mybatis
+mybatis:
+  type-aliases-package: com.hy.tiktok.pojo     # 所有pojo类所在的包路径
+  mapper-locations: classpath:mapper/*.xml    # mapper映射文件
+
+# 通用mapper工具的配置
+mapper:
+  mappers: com.hy.tiktok.my.mapper.MyMapper      # 配置MyMapper，包含了一些封装好的CRUD方法
+  not-empty: false                            # 在进行数据库操作的时候，username != null 是否会追加 username != ''
+  identity: MYSQL
+
+# 分页插件助手的配置
+pagehelper:
+  helper-dialect: MYSQL
+  support-methods-arguments: true
